@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.lightydev.dk.gradle
+package com.elegion.gradle
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.FileCollection

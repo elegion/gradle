@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package com.lightydev.dk.gradle.findbugs
+package com.elegion.gradle.findbugs
 
 import com.android.build.gradle.api.AndroidSourceSet
-import com.lightydev.dk.gradle.CodeQualityPlugin
+import com.elegion.gradle.CodeQualityPlugin
 import org.gradle.api.file.FileCollection
 
 /**

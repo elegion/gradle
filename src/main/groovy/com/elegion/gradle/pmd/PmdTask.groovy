@@ -14,47 +14,51 @@
  * limitations under the License.
  */
 
-package com.lightydev.dk.gradle.checkstyle
+package com.elegion.gradle.pmd
 
-import com.lightydev.dk.gradle.CodeQualityTask
+import com.elegion.gradle.CodeQualityTask
 import org.gradle.api.GradleException
 import org.gradle.api.file.FileCollection
 import org.gradle.api.internal.project.IsolatedAntBuilder
 import org.gradle.api.tasks.TaskAction
+
 /**
  * @author =Troy=
  * @version 1.0
  */
-class CheckstyleTask extends CodeQualityTask {
+class PmdTask extends CodeQualityTask {
+
+  int level = 5
 
   @TaskAction
   public void run() {
     def antBuilder = services.get(IsolatedAntBuilder)
-    def failureProperty = "org.gradle.checkstyle.violations"
+    def failureProperty = "org.gradle.pmd.violations"
     antBuilder.withClasspath(getClasspath()).execute {
-      ant.taskdef(name: 'checkstyle', classname: 'com.puppycrawl.tools.checkstyle.CheckStyleTask')
-      ant.checkstyle(
-          config: getConfigFile(),
-          failOnViolation: false,
-          failureProperty: failureProperty,
-          maxErrors: maxErrors
+      ant.taskdef(name: 'pmd', classname: 'net.sourceforge.pmd.ant.PMDTask')
+      ant.pmd(
+          shortFilenames: 'true',
+          minimumPriority: level,
+          failOnRuleViolation: false,
+          rulesetfiles: configFile.toURI().toString(),
+          failuresPropertyName: failureProperty
       ) {
         getJavaSources().addToAntBuilder(ant, 'fileset', FileCollection.AntType.FileSet)
         if (showViolations) {
-          formatter(type: 'plain', useFile: false)
+          formatter(type: 'plain', toConsole: true)
         }
         if (reportFile) {
           formatter(type: 'xml', toFile: reportFile)
         }
       }
       createHtmlReport()
-      def failureMessage = ant.project.properties[failureProperty]
-      if (failureMessage) {
-        def message = "${name}: Violations were found. ${failureMessage}"
+      def failureCount = ant.project.properties[failureProperty];
+      if (failureCount) {
+        def message = "${name}: ${failureCount} violations were found."
         if (reportFile != null && reportFile.exists()) {
           message += "\n${name}: See the report at: ${reportFile.absolutePath}"
         }
-        if (failOnError) {
+        if (failOnError || (maxErrors > 0 && failureCount > maxErrors)) {
           throw new GradleException(message)
         } else {
           logger.error(message)

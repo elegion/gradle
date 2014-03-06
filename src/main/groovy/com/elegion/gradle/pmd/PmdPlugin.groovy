@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.lightydev.dk.gradle.pmd
+package com.elegion.gradle.pmd
 
-import com.lightydev.dk.gradle.CodeQualityPlugin
+import com.elegion.gradle.CodeQualityPlugin
 import org.gradle.api.file.FileCollection
 /**
  * @author =Troy=

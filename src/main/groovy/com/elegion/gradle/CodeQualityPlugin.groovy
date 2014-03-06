@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.lightydev.dk.gradle
+package com.elegion.gradle
 
 import com.android.build.gradle.BasePlugin
 import com.android.build.gradle.api.AndroidSourceSet

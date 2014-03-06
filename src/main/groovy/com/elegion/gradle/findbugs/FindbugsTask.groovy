@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.lightydev.dk.gradle.findbugs
+package com.elegion.gradle.findbugs
 
-import com.lightydev.dk.gradle.CodeQualityTask
+import com.elegion.gradle.CodeQualityTask
 import org.gradle.api.GradleException
 import org.gradle.api.file.FileCollection
 import org.gradle.api.internal.project.IsolatedAntBuilder
