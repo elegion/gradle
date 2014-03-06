@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xsl:transform xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
-  <xsl:output doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN"
-      doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" encoding="UTF-8" indent="yes" method="xml" />
+  <xsl:output method="xml" indent="yes" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
+      doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN" encoding="UTF-8" />
 
   <xsl:variable name="apos" select="&quot;'&quot;" />
   <xsl:key name="lbc-code-key" match="/BugCollection/BugInstance" use="concat(@category,@abbrev)" />
@@ -12,7 +12,7 @@
 
     <html>
       <head>
-        <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>
           FindBugs (<xsl:value-of select="/BugCollection/@version" />)
           Analysis for
@@ -178,8 +178,7 @@
           }
 
         </style>
-        <script type='text/javascript'>
-          <xsl:text disable-output-escaping='yes'><![CDATA[
+        <script type='text/javascript'><xsl:text disable-output-escaping='yes'><![CDATA[
          var menus            = new Array('summary','info','history','listByCategories','listByPackages');
          var selectedMenuId   = "summary";
          var selectedVersion  = -1;
@@ -932,7 +931,7 @@
           // categories fields: category id, category label
           var categories = new Array(
           <xsl:for-each select="/BugCollection/BugCategory">
-            <xsl:sort order="ascending" select="@category" />
+            <xsl:sort select="@category" order="ascending" />
             [ "<xsl:value-of select="@category" />", "<xsl:value-of select="Description" />" ],
           </xsl:for-each>
           [ "", "" ]
@@ -941,7 +940,7 @@
           // codes fields: code id, code label
           var codes = new Array(
           <xsl:for-each select="/BugCollection/BugCode">
-            <xsl:sort order="ascending" select="@abbrev" />
+            <xsl:sort select="@abbrev" order="ascending" />
             [ "<xsl:value-of select="@abbrev" />", "<xsl:value-of select="Description" />" ],
           </xsl:for-each>
           [ "", "" ]
@@ -950,7 +949,7 @@
           // patterns fields: category id, code id, pattern id, pattern label
           var patterns = new Array(
           <xsl:for-each select="/BugCollection/BugPattern">
-            <xsl:sort order="ascending" select="@type" />
+            <xsl:sort select="@type" order="ascending" />
             [ "<xsl:value-of select="@category" />", "<xsl:value-of select="@abbrev" />", "<xsl:value-of
               select="@type" />", "<xsl:value-of select="translate(ShortDescription, '&quot;', $apos)" />" ],
 
@@ -961,10 +960,10 @@
           // class stats fields: class name, package name, isInterface, total bugs, bugs p1, bugs p2, bugs p3, bugs p4
           var classStats = new Array(
           <xsl:for-each select="/BugCollection/FindBugsSummary/PackageStats/ClassStats">
-            <xsl:sort order="ascending" select="@class" />
+            <xsl:sort select="@class" order="ascending" />
             [ "<xsl:value-of select="@class" />", "<xsl:value-of select="../@package" />", "<xsl:value-of
-              select="@interface" />", "<xsl:value-of select="@bugs" />", "<xsl:value-of select="@priority_1" />", "
-            <xsl:value-of select="@priority_2" />", "<xsl:value-of select="@priority_3" />", "<xsl:value-of
+              select="@interface" />", "<xsl:value-of select="@bugs" />", "<xsl:value-of select="@priority_1" />",
+            "<xsl:value-of select="@priority_2" />", "<xsl:value-of select="@priority_3" />", "<xsl:value-of
               select="@priority_4" />" ],
           </xsl:for-each>
           [ "", "", "", "", "", "", "", "" ]
@@ -973,11 +972,10 @@
           // package stats fields: package name, total bugs, bugs p1, bugs p2, bugs p3, bugs p4
           var packageStats = new Array(
           <xsl:for-each select="/BugCollection/FindBugsSummary/PackageStats">
-            <xsl:sort order="ascending" select="@package" />
+            <xsl:sort select="@package" order="ascending" />
             [ "<xsl:value-of select="@package" />", "<xsl:value-of select="@total_bugs" />", "<xsl:value-of
-              select="@priority_1" />", "<xsl:value-of select="@priority_2" />", "
-            <xsl:value-of select="@priority_3" />
-            ", "<xsl:value-of select="@priority_4" />" ],
+              select="@priority_1" />", "<xsl:value-of select="@priority_2" />", "<xsl:value-of select="@priority_3" />",
+            "<xsl:value-of select="@priority_4" />" ],
           </xsl:for-each>
           [ "", "", "", "", "", "" ]
           );
@@ -1052,27 +1050,27 @@
           </xsl:choose>
         </h3>
 
-        <div style='' id='menuWrapper'>
+        <div id='menuWrapper' style=''>
           <div id="navcontainer">
             <ul id="navlist">
               <li>
-                <a class="current" href="#" id='summary' onclick="selectMenu('summary'); return false;">Summary</a>
+                <a id='summary' class="current" href="#" onclick="selectMenu('summary'); return false;">Summary</a>
               </li>
               <li>
-                <a class="none" href="#" id='history' onclick="selectMenu('history'); return false;">History</a>
+                <a id='history' class="none" href="#" onclick="selectMenu('history'); return false;">History</a>
               </li>
               <li>
-                <a class="none" href="#" id='listByCategories' onclick="selectMenu('listByCategories'); return false;">
+                <a id='listByCategories' class="none" href="#" onclick="selectMenu('listByCategories'); return false;">
                   Browse By Categories
                 </a>
               </li>
               <li>
-                <a class="none" href="#" id='listByPackages' onclick="selectMenu('listByPackages'); return false;">
+                <a id='listByPackages' class="none" href="#" onclick="selectMenu('listByPackages'); return false;">
                   Browse by Packages
                 </a>
               </li>
               <li>
-                <a class="none" href="#" id='info' onclick="selectMenu('info'); return false;">Info</a>
+                <a id='info' class="none" href="#" onclick="selectMenu('info'); return false;">Info</a>
               </li>
             </ul>
           </div>
@@ -1081,10 +1079,10 @@
         <div id='displayWrapper'>
 
           <div style='height:25px;'>
-            <div style='float:right;' id='messageContainer'>
+            <div id='messageContainer' style='float:right;'>
               Computing data...
             </div>
-            <div style='display:none;' id='filterWrapper'>
+            <div id='filterWrapper' style='display:none;'>
               <form name='findbugsForm'>
                 <div id='filterContainer'>
                   <select name='versions' onchange='filter()'>
@@ -1096,17 +1094,17 @@
                 </div>
               </form>
             </div>
-            <div style='display:none;' id='historyControlWrapper'>
+            <div id='historyControlWrapper' style='display:none;'>
               <form name="findbugsHistoryControlForm">
                 <div id='historyControlContainer'>
-                  <input name='includeFixedIntroducedBugs' alt='Include fixed introduced bugs.'
-                      onclick='includeFixedIntroducedBugsInHistory()' type='checkbox' value='checked' />
+                  <input type='checkbox' name='includeFixedIntroducedBugs' value='checked'
+                      alt='Include fixed introduced bugs.' onclick='includeFixedIntroducedBugsInHistory()' />
                   Include counts of introduced bugs that were fixed in later releases.
                 </div>
               </form>
             </div>
           </div>
-          <div class='displayContainer' id='summaryContainer'>
+          <div id='summaryContainer' class='displayContainer'>
             <h3>Package Summary</h3>
             <table>
               <tr>
@@ -1121,12 +1119,8 @@
               <tr>
                 <td class='summary-name'>
                   Overall
-                  (
-                  <xsl:value-of select="/BugCollection/FindBugsSummary/@num_packages" />
-                  packages),
-                  (
-                  <xsl:value-of select="/BugCollection/FindBugsSummary/@total_classes" />
-                  classes)
+                  (<xsl:value-of select="/BugCollection/FindBugsSummary/@num_packages" /> packages),
+                  (<xsl:value-of select="/BugCollection/FindBugsSummary/@total_classes" /> classes)
                 </td>
                 <td class='summary-size'>
                   <xsl:value-of select="/BugCollection/FindBugsSummary/@total_size" />
@@ -1148,7 +1142,7 @@
                 </td>
               </tr>
               <xsl:for-each select="/BugCollection/FindBugsSummary/PackageStats">
-                <xsl:sort order="ascending" select="@package" />
+                <xsl:sort select="@package" order="ascending" />
                 <xsl:if test="@total_bugs!='0'">
                   <tr>
                     <td class='summary-name'>
@@ -1178,7 +1172,7 @@
             </table>
           </div>
 
-          <div class='displayContainer' id='infoContainer'>
+          <div id='infoContainer' class='displayContainer'>
             <div id='analyzed-files'>
               <h3>Analyzed Files:</h3>
               <ul>
@@ -1223,31 +1217,30 @@
               </ul>
             </div>
           </div>
-          <div class='displayContainer' id='historyContainer'>Loading...</div>
-          <div class='displayContainer' id='listByCategoriesContainer'>Loading...</div>
-          <div class='displayContainer' id='listByPackagesContainer'>Loading...</div>
+          <div id='historyContainer' class='displayContainer'>Loading...</div>
+          <div id='listByCategoriesContainer' class='displayContainer'>Loading...</div>
+          <div id='listByPackagesContainer' class='displayContainer'>Loading...</div>
         </div>
 
-        <div style='display:none;' id='bug-collection'>
+        <div id='bug-collection' style='display:none;'>
           <!-- advanced tooltips -->
           <xsl:for-each select="/BugCollection/BugPattern">
             <xsl:variable name="b-t">
               <xsl:value-of select="@type" />
             </xsl:variable>
             <div>
-              <xsl:attribute name="id">tip-
-                <xsl:value-of select="$b-t" />
+              <xsl:attribute name="id">tip-<xsl:value-of select="$b-t" />
               </xsl:attribute>
               <xsl:attribute name="class">tip</xsl:attribute>
-              <xsl:value-of disable-output-escaping="yes" select="/BugCollection/BugPattern[@type=$b-t]/Details" />
+              <xsl:value-of select="/BugCollection/BugPattern[@type=$b-t]/Details" disable-output-escaping="yes" />
             </div>
           </xsl:for-each>
 
           <!-- bug descriptions - hidden -->
           <xsl:for-each select="/BugCollection/BugInstance[not(@last)]">
             <div style="display:none;" class='bug'>
-              <xsl:attribute name="id">b-uid-<xsl:value-of select="@instanceHash" />-
-                <xsl:value-of select="@instanceOccurrenceNum" />
+              <xsl:attribute name="id">b-uid-<xsl:value-of select="@instanceHash" />-<xsl:value-of
+                  select="@instanceOccurrenceNum" />
               </xsl:attribute>
               <xsl:for-each select="*/Message">
                 <div class="b-r">
@@ -1255,7 +1248,7 @@
                 </div>
               </xsl:for-each>
               <div class="b-d">
-                <xsl:value-of disable-output-escaping="no" select="LongMessage" />
+                <xsl:value-of select="LongMessage" disable-output-escaping="no" />
               </div>
             </div>
           </xsl:for-each>
